@@ -197,7 +197,6 @@ const changePassword = async (req, res) => {
                 return res.status(404).json({ error: "Please enter correct credentials" });
             } else {
                 const new_password = await bcrypt.hash(data.new_password, 10);
-                console.log(new_password);
                 await mukhiya.update({
                     member_password: new_password
                 }, {
