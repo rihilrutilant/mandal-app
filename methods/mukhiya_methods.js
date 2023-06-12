@@ -63,6 +63,8 @@ const mukhiyaLogin = async (req, res) => {
                 })
                 console.log(mukhiyaData);
 
+                return;
+
                 res.status(200).send({ status: 1, msg: "login successfull", data: mukhiyaData });
 
             }
