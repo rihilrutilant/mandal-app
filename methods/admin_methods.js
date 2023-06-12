@@ -415,6 +415,7 @@ const editMember = async (req, res) => {
             const member = await mukhiya.update({
                 mukhiya_mobile_no: mobile_no,
                 member_password: password,
+                auth_token: "",
                 updated_date: Date.now()
             }, {
                 where: {
@@ -436,6 +437,31 @@ const editMember = async (req, res) => {
     }
 }
 
+const fatchAllMembers = async (req, res) => {
+    const auth_token = req.headers['auth-token'];
+    if (!auth_token) {
+        return res.status(404).send({ status: 0, msg: "auth token not found" });
+    }
+    try {
+        const adminDetail = await admin.findOne({
+            where: {
+                auth_token: auth_token,
+            }
+        })
+        if (!adminDetail) {
+            return res.status(203).json({ error: "wrong authenticator" });
+        } else {
+            const memberData = await mukhiya.findAll({})
+            res.status(200).send({ status: 1, msg: "slider images detail", data: memberData });
+        }
+
+
+
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     adminLogin,
     editHeadLine,
@@ -444,6 +470,7 @@ module.exports = {
     addsliderImage,
     fatchAllSliderImages,
     deleteSliderImageById,
-    editMember
+    editMember,
+    fatchAllMembers
 
 }
