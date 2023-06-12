@@ -62,9 +62,9 @@ const adminLogin = async (req, res) => {
                 const userData = await admin.findOne({
                     where: {
                         mobile_no: data.mobile_no,
-                    }
+                    },
+                    attributes: ["auth_token"]
                 })
-
                 res.status(200).send({ status: 1, msg: "login successfull", data: userData });
 
             }
