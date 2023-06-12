@@ -24,31 +24,31 @@ module.exports = (sequelize, DataTypes) => {
         },
         mukhiya_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         middle_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         last_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         birth_date: {
-            type: DataTypes.TEXT,
-            allowNull: false,
+            type: DataTypes.DATE,
+            allowNull: true,
         },
         country_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         city_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         village_name: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         maternal_village_name: {
             type: DataTypes.TEXT,
@@ -56,11 +56,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         blood_group: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         cast: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         marriage_status: {
             type: DataTypes.ENUM,
@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         education: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         bussiness: {
             type: DataTypes.TEXT,
@@ -81,11 +81,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         adress: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
         },
         business_adress: {
             type: DataTypes.TEXT,

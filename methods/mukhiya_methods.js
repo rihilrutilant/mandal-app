@@ -102,35 +102,24 @@ const fatchHeadLine = async (req, res) => {
 const editMukhiyaDetails = async (req, res) => {
     const memberDetails = req.body;
     var auth_token = req.headers['auth-token'];
-    const mukhiya_id = req.params.id;
+
 
     if (!auth_token) {
         return res.status(404).send({ status: 0, msg: "auth token not found" });
     }
-    const adminDetail = await admin.findOne({
+    const mukhiyaDetail = await admin.findOne({
         where: {
             auth_token: auth_token,
         }
     })
-    if (!adminDetail) {
+    if (!mukhiyaDetail) {
         return res.status(203).json({ error: "wrong authenticator" });
     }
 
-    const memberDetail = await mukhiya.findOne({
-        where: {
-            mukhiya_id: mukhiya_id,
-        }
-    })
 
+    if (mukhiyaDetail) {
 
-    if (!memberDetail) {
-        return res.status(404).json({ error: "member not found please enter valid member id" });
-    }
-
-
-    if (memberDetails && adminDetail && memberDetail) {
-
-        const response = validation.editMember(req.body)
+        const response = validation.editMukhiyaDetails(req.body)
 
 
 
@@ -143,36 +132,50 @@ const editMukhiyaDetails = async (req, res) => {
             console.log(data);
 
 
-            if (data.member_password) {
-                var password = await bcrypt.hash(data.member_password, 10);
-            } else {
-                var password = memberDetail.member_password;
-            }
-            if (data.mukhiya_mobile_no) {
-                var mobile_no = data.mukhiya_mobile_no;
-            } else {
-                var mobile_no = memberDetail.mukhiya_mobile_no;
-            }
+            // if (data.member_password) {
+            //     var password = await bcrypt.hash(data.member_password, 10);
+            // } else {
+            //     var password = memberDetail.member_password;
+            // }
+            // if (data.mukhiya_mobile_no) {
+            //     var mobile_no = data.mukhiya_mobile_no;
+            // } else {
+            //     var mobile_no = memberDetail.mukhiya_mobile_no;
+            // }
 
-            const member = await mukhiya.update({
-                mukhiya_mobile_no: mobile_no,
-                member_password: password,
-                auth_token: "",
+            const mukhiyadetail = await mukhiya.update({
+                mukhiya_name: data.mukhiya_name,
+                middle_name: data.middle_name,
+                last_name: data.last_name,
+                birth_date: data.birth_date,
+                country_name: data.country_name,
+                city_name: data.city_name,
+                village_name: data.village_name,
+                maternal_village_name: data.maternal_village_name,
+                blood_group: data.blood_group,
+                cast: data.cast,
+                marriage_status: data.marriage_status,
+                education: data.education,
+                bussiness: data.bussiness,
+                social_media_link: data.social_media_link,
+                email: data.email,
+                adress: data.adress,
+                business_adress: data.business_adress,
                 updated_date: Date.now()
             }, {
                 where: {
-                    mukhiya_id: mukhiya_id,
+                    auth_token: auth_token,
                 }
             })
 
-            const memberdata = await mukhiya.findOne({
+            const mukhiyadata = await mukhiya.findOne({
                 where: {
-                    mukhiya_id: mukhiya_id
+                    auth_token: auth_token,
                 }
             })
 
 
-            res.status(200).send({ status: 1, msg: "edit mukhiya member successfull", data: memberdata });
+            res.status(200).send({ status: 1, msg: "edit mukhiya details successfull", data: mukhiyadata });
 
         }
 
