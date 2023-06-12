@@ -131,18 +131,6 @@ const editMukhiyaDetails = async (req, res) => {
             const data = response.value;
             console.log(data);
 
-
-            // if (data.member_password) {
-            //     var password = await bcrypt.hash(data.member_password, 10);
-            // } else {
-            //     var password = memberDetail.member_password;
-            // }
-            // if (data.mukhiya_mobile_no) {
-            //     var mobile_no = data.mukhiya_mobile_no;
-            // } else {
-            //     var mobile_no = memberDetail.mukhiya_mobile_no;
-            // }
-
             const mukhiyadetail = await mukhiya.update({
                 mukhiya_name: data.mukhiya_name,
                 middle_name: data.middle_name,
