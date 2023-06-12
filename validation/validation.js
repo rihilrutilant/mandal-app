@@ -69,9 +69,34 @@ function mukhiyaLogin(mukhiya) {
     return mukhiyaDetails.validate(mukhiya)
 }
 
+
+function editMember(memberData) {
+    const memberDetails =
+        joi.object({
+            mukhiya_mobile_no: joi.number()
+                .integer()
+                .min(10 ** 9)
+                .max(10 ** 10 - 1),
+            member_password: joi.string()
+                .trim()
+                .min(6)
+
+        })
+
+    return memberDetails.validate(memberData)
+}
+
+
+
+
+
+
+
+
 module.exports = {
     adminLogin,
     editHeadLine,
     creatMember,
-    mukhiyaLogin
+    mukhiyaLogin,
+    editMember
 }

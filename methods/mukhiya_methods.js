@@ -59,11 +59,10 @@ const mukhiyaLogin = async (req, res) => {
                 const mukhiyaData = await mukhiya.findOne({
                     where: {
                         mukhiya_id: mukhiyaDetails.mukhiya_id,
-                    }
+                    },
+                    attributes: ["auth_token"]
                 })
-                console.log(mukhiyaData);
 
-                return;
 
                 res.status(200).send({ status: 1, msg: "login successfull", data: mukhiyaData });
 

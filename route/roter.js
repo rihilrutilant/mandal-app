@@ -22,6 +22,8 @@ module.exports = function (app) {
     app.post("/api/slider/fetch_all_slider_imgs", admin_methods.fatchAllSliderImages);
     //// Admin Login http://localhost:5000/api/slider/delete_slider_img/:id
     app.post("/api/slider/delete_slider_img/:id", admin_methods.deleteSliderImageById);
+    //// Admin Login http://localhost:5000/api/slider/mukhya_member/edit_mukhya_member/:id
+    app.put("/api/slider/mukhya_member/edit_mukhya_member/:id", admin_methods.editMember);
 
 
     ////******************** mukhiyas apis ******************////
