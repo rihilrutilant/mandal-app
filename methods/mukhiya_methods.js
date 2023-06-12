@@ -129,7 +129,6 @@ const editMukhiyaDetails = async (req, res) => {
         else {
 
             const data = response.value;
-            console.log(data);
 
             const mukhiyadetail = await mukhiya.update({
                 mukhiya_name: data.mukhiya_name,
