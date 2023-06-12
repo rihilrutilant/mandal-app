@@ -158,6 +158,23 @@ function editMukhiyaDetails(memberData) {
 }
 
 
+function changePassword(memberData) {
+    const memberDetails =
+        joi.object({
+            old_password: joi.string()
+                .trim()
+                .min(6)
+                .required(),
+            new_password: joi.string()
+                .trim()
+                .min(6)
+                .required(),
+
+        })
+
+    return memberDetails.validate(memberData)
+}
+
 
 
 
@@ -168,5 +185,6 @@ module.exports = {
     creatMember,
     mukhiyaLogin,
     editMember,
-    editMukhiyaDetails
+    editMukhiyaDetails,
+    changePassword
 }

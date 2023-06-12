@@ -452,7 +452,7 @@ const fatchAllMembers = async (req, res) => {
             return res.status(203).json({ error: "wrong authenticator" });
         } else {
             const memberData = await mukhiya.findAll({})
-            res.status(200).send({ status: 1, msg: "slider images detail", data: memberData });
+            res.status(200).send({ status: 1, msg: "mukhiya detail", data: memberData });
         }
 
 

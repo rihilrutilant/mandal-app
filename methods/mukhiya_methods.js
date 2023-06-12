@@ -169,11 +169,56 @@ const editMukhiyaDetails = async (req, res) => {
     }
 }
 
+const changePassword = async (req, res) => {
+    const auth_token = req.headers['auth-token'];
+
+    if (!auth_token) {
+        return res.status(404).send({ status: 0, msg: "auth token not found" });
+    }
+
+    const mukhiyaDetails = await mukhiya.findOne({
+        where: {
+            auth_token: auth_token,
+        }
+    })
+    if (!mukhiyaDetails) {
+        return res.status(203).json({ error: "wrong authenticator" });
+    } else {
+        const response = validation.changePassword(req.body)
+        if (response.error) {
+            return res.status(200).send({ status: 0, msg: response.error.message });
+        }
+        else {
+            const data = response.value;
+
+
+            const old_password = await bcrypt.compare(data.old_password, mukhiyaDetails.member_password);
+            if (old_password == false) {
+                return res.status(404).json({ error: "Please enter correct credentials" });
+            } else {
+                const new_password = await bcrypt.hash(data.new_password, 10);
+                console.log(new_password);
+                await mukhiya.update({
+                    member_password: new_password
+                }, {
+                    where: {
+                        auth_token: auth_token,
+                    }
+                })
+
+                res.status(200).send({ status: 1, msg: "password change successfull" });
+            }
+        }
+    }
+
+
+}
 
 
 module.exports = {
     mukhiyaLogin,
     fatchHeadLine,
-    editMukhiyaDetails
+    editMukhiyaDetails,
+    changePassword
 
 }
