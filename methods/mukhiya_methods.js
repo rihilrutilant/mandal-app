@@ -99,11 +99,91 @@ const fatchHeadLine = async (req, res) => {
     }
 }
 
+const editMukhiyaDetails = async (req, res) => {
+    const memberDetails = req.body;
+    var auth_token = req.headers['auth-token'];
+    const mukhiya_id = req.params.id;
+
+    if (!auth_token) {
+        return res.status(404).send({ status: 0, msg: "auth token not found" });
+    }
+    const adminDetail = await admin.findOne({
+        where: {
+            auth_token: auth_token,
+        }
+    })
+    if (!adminDetail) {
+        return res.status(203).json({ error: "wrong authenticator" });
+    }
+
+    const memberDetail = await mukhiya.findOne({
+        where: {
+            mukhiya_id: mukhiya_id,
+        }
+    })
+
+
+    if (!memberDetail) {
+        return res.status(404).json({ error: "member not found please enter valid member id" });
+    }
+
+
+    if (memberDetails && adminDetail && memberDetail) {
+
+        const response = validation.editMember(req.body)
+
+
+
+        if (response.error) {
+            return res.status(200).send({ status: 0, msg: response.error.message });
+        }
+        else {
+
+            const data = response.value;
+            console.log(data);
+
+
+            if (data.member_password) {
+                var password = await bcrypt.hash(data.member_password, 10);
+            } else {
+                var password = memberDetail.member_password;
+            }
+            if (data.mukhiya_mobile_no) {
+                var mobile_no = data.mukhiya_mobile_no;
+            } else {
+                var mobile_no = memberDetail.mukhiya_mobile_no;
+            }
+
+            const member = await mukhiya.update({
+                mukhiya_mobile_no: mobile_no,
+                member_password: password,
+                auth_token: "",
+                updated_date: Date.now()
+            }, {
+                where: {
+                    mukhiya_id: mukhiya_id,
+                }
+            })
+
+            const memberdata = await mukhiya.findOne({
+                where: {
+                    mukhiya_id: mukhiya_id
+                }
+            })
+
+
+            res.status(200).send({ status: 1, msg: "edit mukhiya member successfull", data: memberdata });
+
+        }
+
+    }
+}
 
 
 
 module.exports = {
     mukhiyaLogin,
     fatchHeadLine,
+    editMukhiyaDetails
 
 }

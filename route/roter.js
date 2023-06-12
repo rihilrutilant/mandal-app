@@ -22,15 +22,17 @@ module.exports = function (app) {
     app.post("/api/slider/fetch_all_slider_imgs", admin_methods.fatchAllSliderImages);
     //// Admin Login http://localhost:5000/api/slider/delete_slider_img/:id
     app.post("/api/slider/delete_slider_img/:id", admin_methods.deleteSliderImageById);
-    //// Admin Login http://localhost:5000/api/slider/mukhya_member/edit_mukhya_member/:id
-    app.put("/api/slider/mukhya_member/edit_mukhya_member/:id", admin_methods.editMember);
-    //// Admin Login http://localhost:5000/api/slider/mukhya_member/fatch_all_members
-    app.get("/api/slider/mukhya_member/fatch_all_members", admin_methods.fatchAllMembers);
+    //// Admin Login http://localhost:5000/api/slider/admin/edit_mukhya_member/:id
+    app.put("/api/slider/admin/edit_mukhya_member/:id", admin_methods.editMember);
+    //// Admin Login http://localhost:5000/api/slider/admin/fatch_all_members
+    app.get("/api/slider/admin/fatch_all_members", admin_methods.fatchAllMembers);
 
 
     ////******************** mukhiyas apis ******************////
     //// Admin Login http://localhost:5000/api/mukhya_member/login_mukhya_member
     app.post("/api/mukhya_member/login_mukhya_member", mukhiya_methods.mukhiyaLogin);
+    //// Admin Login http://localhost:5000/api/mukhya_member/edit_mukhya_member
+    app.put("/api/mukhya_member/edit_mukhya_member", mukhiya_methods.editMukhiyaDetails);
 
 
 }
