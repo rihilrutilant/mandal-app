@@ -8,6 +8,8 @@ var cors = require('cors')
 
 app.use(cors())
 
+app.use('/slider_image', express.static('./public/slider_images'))
+
 
 app.get("/home", (req, res) => {
     res.send("welcome to home page mandal")

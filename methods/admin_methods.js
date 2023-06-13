@@ -300,7 +300,7 @@ const fatchAllSliderImages = async (req, res) => {
             return res.status(203).json({ error: "wrong authenticator" });
         } else {
             const sliderImageData = await slider.findAll({})
-            res.status(200).send({ status: 1, msg: "slider images detail", data: sliderImageData });
+            res.status(200).send(sliderImageData);
         }
 
 
@@ -451,11 +451,9 @@ const fatchAllMembers = async (req, res) => {
         if (!adminDetail) {
             return res.status(203).json({ error: "wrong authenticator" });
         } else {
-            const memberData = await mukhiya.findAll({})
-            res.status(200).send({ status: 1, msg: "mukhiya detail", data: memberData });
+            const memberData = await mukhiya.findAll()
+            res.status(200).send(memberData);
         }
-
-
 
     } catch (error) {
         res.status(500).send("Internal Server Error");
