@@ -470,5 +470,4 @@ module.exports = {
     deleteSliderImageById,
     editMember,
     fatchAllMembers
-
 }
